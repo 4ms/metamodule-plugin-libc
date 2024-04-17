@@ -1,0 +1,243 @@
+add_library(metamodule-plugin-libc OBJECT) #or STATIC?
+
+
+set(libm ${CMAKE_CURRENT_LIST_DIR}/newlib/libm)
+
+set(LIBM_COMMON_SOURCES
+	${libm}/common/s_finite.c
+	${libm}/common/s_copysign.c
+	${libm}/common/s_modf.c
+	${libm}/common/s_scalbn.c
+	${libm}/common/s_cbrt.c
+	${libm}/common/s_exp10.c
+	${libm}/common/s_expm1.c
+	${libm}/common/s_ilogb.c
+	${libm}/common/s_infinity.c
+	${libm}/common/s_isinf.c
+	${libm}/common/s_isinfd.c
+	${libm}/common/s_isnan.c
+	${libm}/common/s_isnand.c
+	${libm}/common/s_log1p.c
+	${libm}/common/s_nan.c
+	${libm}/common/s_nextafter.c
+	${libm}/common/s_pow10.c
+	${libm}/common/s_rint.c
+	${libm}/common/s_logb.c
+	${libm}/common/s_log2.c
+	${libm}/common/s_fdim.c
+	${libm}/common/s_fma.c
+	${libm}/common/s_fmax.c
+	${libm}/common/s_fmin.c
+	${libm}/common/s_fpclassify.c
+	${libm}/common/s_lrint.c
+	${libm}/common/s_llrint.c
+	${libm}/common/s_lround.c
+	${libm}/common/s_llround.c
+	${libm}/common/s_nearbyint.c
+	${libm}/common/s_remquo.c
+	${libm}/common/s_round.c
+	${libm}/common/s_scalbln.c
+	${libm}/common/s_signbit.c
+	${libm}/common/s_trunc.c
+	${libm}/common/exp.c
+	${libm}/common/exp2.c
+	${libm}/common/exp_data.c
+	${libm}/common/math_err.c
+	${libm}/common/log.c
+	${libm}/common/log_data.c
+	${libm}/common/log2.c
+	${libm}/common/log2_data.c
+	${libm}/common/pow.c
+	${libm}/common/pow_log_data.c
+)
+
+set(LIBM_COMMON_FLOAT_SOURCES
+	${libm}/common/sf_finite.c
+    ${libm}/common/sf_copysign.c
+    ${libm}/common/sf_modf.c
+    ${libm}/common/sf_scalbn.c
+	${libm}/common/sf_cbrt.c
+    ${libm}/common/sf_exp10.c
+    ${libm}/common/sf_expm1.c
+    ${libm}/common/sf_ilogb.c
+	${libm}/common/sf_infinity.c
+    ${libm}/common/sf_isinf.c
+    ${libm}/common/sf_isinff.c
+    ${libm}/common/sf_isnan.c
+    ${libm}/common/sf_isnanf.c
+	${libm}/common/sf_log1p.c
+    ${libm}/common/sf_nan.c
+    ${libm}/common/sf_nextafter.c
+    ${libm}/common/sf_pow10.c
+	${libm}/common/sf_rint.c
+    ${libm}/common/sf_logb.c
+	${libm}/common/sf_fdim.c
+    ${libm}/common/sf_fma.c
+    ${libm}/common/sf_fmax.c
+    ${libm}/common/sf_fmin.c
+    ${libm}/common/sf_fpclassify.c
+	${libm}/common/sf_lrint.c
+    ${libm}/common/sf_llrint.c
+	${libm}/common/sf_lround.c
+    ${libm}/common/sf_llround.c
+    ${libm}/common/sf_nearbyint.c
+    ${libm}/common/sf_remquo.c
+    ${libm}/common/sf_round.c
+	${libm}/common/sf_scalbln.c
+    ${libm}/common/sf_trunc.c
+	${libm}/common/sf_exp.c
+    ${libm}/common/sf_exp2.c
+    ${libm}/common/sf_exp2_data.c
+    ${libm}/common/sf_log.c
+    ${libm}/common/sf_log_data.c
+	${libm}/common/sf_log2.c
+    ${libm}/common/sf_log2_data.c
+    ${libm}/common/sf_pow_log2_data.c
+    ${libm}/common/sf_pow.c
+	${libm}/common/sinf.c
+    ${libm}/common/cosf.c
+    ${libm}/common/sincosf.c
+    ${libm}/common/sincosf_data.c
+    ${libm}/common/math_errf.c
+)
+
+
+#if have long double
+set(LIBM_COMMON_LONG_DOUBLE_SOURCES
+	${libm}/common/atanl.c
+    ${libm}/common/cosl.c
+    ${libm}/common/sinl.c
+    ${libm}/common/tanl.c
+    ${libm}/common/tanhl.c
+    ${libm}/common/frexpl.c
+    ${libm}/common/modfl.c
+    ${libm}/common/ceill.c
+    ${libm}/common/fabsl.c
+	${libm}/common/floorl.c
+    ${libm}/common/log1pl.c
+    ${libm}/common/expm1l.c
+    ${libm}/common/acosl.c
+    ${libm}/common/asinl.c
+    ${libm}/common/atan2l.c
+    ${libm}/common/coshl.c
+    ${libm}/common/sinhl.c
+	${libm}/common/expl.c
+    ${libm}/common/ldexpl.c
+    ${libm}/common/logl.c
+    ${libm}/common/log10l.c
+    ${libm}/common/powl.c
+    ${libm}/common/sqrtl.c
+    ${libm}/common/fmodl.c
+    ${libm}/common/hypotl.c
+	${libm}/common/copysignl.c
+    ${libm}/common/nanl.c
+    ${libm}/common/ilogbl.c
+    ${libm}/common/asinhl.c
+    ${libm}/common/cbrtl.c
+    ${libm}/common/nextafterl.c
+    ${libm}/common/rintl.c
+	${libm}/common/scalbnl.c
+    ${libm}/common/exp2l.c
+    ${libm}/common/scalblnl.c
+    ${libm}/common/tgammal.c
+    ${libm}/common/nearbyintl.c
+    ${libm}/common/lrintl.c
+    ${libm}/common/llrintl.c
+	${libm}/common/roundl.c
+    ${libm}/common/lroundl.c
+    ${libm}/common/llroundl.c
+    ${libm}/common/truncl.c
+    ${libm}/common/remquol.c
+    ${libm}/common/fdiml.c
+    ${libm}/common/fmaxl.c
+    ${libm}/common/fminl.c
+	${libm}/common/fmal.c
+    ${libm}/common/acoshl.c
+    ${libm}/common/atanhl.c
+    ${libm}/common/remainderl.c
+    ${libm}/common/lgammal.c
+    ${libm}/common/erfl.c
+    ${libm}/common/erfcl.c
+	${libm}/common/logbl.c
+    ${libm}/common/nexttowardf.c
+    ${libm}/common/nexttoward.c
+    ${libm}/common/nexttowardl.c
+    ${libm}/common/log2l.c
+	${libm}/common/sl_finite.c
+)
+
+set(LIBM_COMMON_CHEWOUT_FILES
+	${libm}/common/s_cbrt.def
+    ${libm}/common/s_copysign.def
+    ${libm}/common/s_exp10.def
+    ${libm}/common/s_expm1.def
+    ${libm}/common/s_ilogb.def
+	${libm}/common/s_infinity.def
+    ${libm}/common/s_isnan.def
+    ${libm}/common/s_log1p.def
+    ${libm}/common/s_modf.def
+	${libm}/common/s_nan.def
+    ${libm}/common/s_nextafter.def
+    ${libm}/common/s_pow10.def
+    ${libm}/common/s_scalbn.def
+	${libm}/common/s_fdim.def
+    ${libm}/common/s_fma.def
+    ${libm}/common/s_fmax.def
+    ${libm}/common/s_fmin.def
+	${libm}/common/s_logb.def
+    ${libm}/common/s_log2.def
+    ${libm}/common/s_lrint.def
+    ${libm}/common/s_lround.def
+    ${libm}/common/s_nearbyint.def
+	${libm}/common/s_remquo.def
+    ${libm}/common/s_rint.def
+    ${libm}/common/s_round.def
+    ${libm}/common/s_signbit.def
+    ${libm}/common/s_trunc.def
+	${libm}/common/isgreater.def
+)
+
+set(LIBM_MACHINE_FILES
+	${libm}/machine/arm/e_sqrt.c
+	${libm}/machine/arm/ef_sqrt.c
+	${libm}/machine/arm/s_ceil.c
+	${libm}/machine/arm/s_floor.c
+	${libm}/machine/arm/s_fma_arm.c
+	${libm}/machine/arm/s_nearbyint.c
+	${libm}/machine/arm/s_rint.c
+	${libm}/machine/arm/s_round.c
+	${libm}/machine/arm/s_trunc.c
+	${libm}/machine/arm/sf_ceil.c
+	${libm}/machine/arm/sf_floor.c
+	${libm}/machine/arm/sf_fma_arm.c
+	${libm}/machine/arm/sf_nearbyint.c
+	${libm}/machine/arm/sf_rint.c
+	${libm}/machine/arm/sf_round.c
+	${libm}/machine/arm/sf_trunc.c
+	${libm}/machine/arm/feclearexcept.c
+	${libm}/machine/arm/fe_dfl_env.c
+	${libm}/machine/arm/fegetenv.c
+	${libm}/machine/arm/fegetexceptflag.c
+	${libm}/machine/arm/fegetround.c
+	${libm}/machine/arm/feholdexcept.c
+	${libm}/machine/arm/fegetexcept.c
+	${libm}/machine/arm/feraiseexcept.c
+	${libm}/machine/arm/fesetenv.c
+	${libm}/machine/arm/fesetexceptflag.c
+	${libm}/machine/arm/fesetround.c
+	${libm}/machine/arm/fetestexcept.c
+	${libm}/machine/arm/feupdateenv.c
+	${libm}/machine/arm/feenableexcept.c
+	${libm}/machine/arm/fedisableexcept.c
+)
+
+target_sources(metamodule-plugin-libc PUBLIC
+    ${LIBM_COMMON_SOURCES}
+    ${LIBM_COMMON_FLOAT_SOURCES}
+    # ${LIBM_COMMON_LONG_DOUBLE_SOURCES}
+    # ${LIBM_COMMON_CHEWOUT_FILES}
+    ${LIBM_MACHINE_FILES}
+)
+
+
+# ${CMAKE_CURRENT_LIST_DIR}/metamodule-plugin-libc/newlib/libc/string/strcmp.c
