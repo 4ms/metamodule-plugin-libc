@@ -349,5 +349,8 @@ target_include_directories(metamodule-plugin-libc PRIVATE
 target_compile_options(metamodule-plugin-libc PRIVATE
 	-fbuiltin
 	-fno-math-errno
+
+    # Do not export plugin-libc symbols (removes unused symbols and does not make GOT/PLT tables for them):
+    -fvisibility=hidden 
 )
 
