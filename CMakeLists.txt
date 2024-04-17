@@ -1,7 +1,146 @@
-add_library(metamodule-plugin-libc OBJECT) #or STATIC?
-
+add_library(metamodule-plugin-libc INTERFACE)
 
 set(libm ${CMAKE_CURRENT_LIST_DIR}/newlib/libm)
+
+# Some items are commented out because the machine/arm/ version #includes the .c file
+set(LIBM_MATH_SOURCES
+	${libm}/math/k_standard.c
+    ${libm}/math/k_rem_pio2.c
+	${libm}/math/k_cos.c
+    ${libm}/math/k_sin.c
+    ${libm}/math/k_tan.c
+	${libm}/math/e_acos.c
+    ${libm}/math/e_acosh.c
+    ${libm}/math/e_asin.c
+    ${libm}/math/e_atan2.c
+	${libm}/math/e_atanh.c
+    ${libm}/math/e_cosh.c
+    ${libm}/math/e_exp.c
+    ${libm}/math/e_fmod.c
+	${libm}/math/e_tgamma.c
+    ${libm}/math/e_hypot.c
+    ${libm}/math/e_j0.c
+	${libm}/math/e_j1.c
+    ${libm}/math/e_jn.c
+    ${libm}/math/er_lgamma.c
+	${libm}/math/e_log.c
+    ${libm}/math/e_log10.c
+    ${libm}/math/e_pow.c
+    ${libm}/math/e_rem_pio2.c
+    ${libm}/math/e_remainder.c
+	${libm}/math/e_scalb.c
+    ${libm}/math/e_sinh.c
+    # ${libm}/math/e_sqrt.c
+	${libm}/math/w_acos.c
+    ${libm}/math/w_acosh.c
+    ${libm}/math/w_asin.c
+    ${libm}/math/w_atan2.c
+	${libm}/math/w_atanh.c
+    ${libm}/math/w_cosh.c
+    ${libm}/math/w_exp.c
+    ${libm}/math/w_fmod.c
+	${libm}/math/w_gamma.c
+    ${libm}/math/wr_gamma.c
+    ${libm}/math/w_hypot.c
+    ${libm}/math/w_j0.c
+	${libm}/math/w_j1.c
+    ${libm}/math/w_jn.c
+    ${libm}/math/w_lgamma.c
+    ${libm}/math/wr_lgamma.c
+	${libm}/math/w_log.c
+    ${libm}/math/w_log10.c
+    ${libm}/math/w_pow.c
+    ${libm}/math/w_remainder.c
+	${libm}/math/w_scalb.c
+    ${libm}/math/w_sinh.c
+    ${libm}/math/w_sqrt.c
+	${libm}/math/w_sincos.c
+	${libm}/math/w_drem.c
+	${libm}/math/signgam.c
+	${libm}/math/s_asinh.c
+    ${libm}/math/s_atan.c
+    # ${libm}/math/s_ceil.c
+	${libm}/math/s_cos.c
+    ${libm}/math/s_erf.c
+    ${libm}/math/s_fabs.c
+    # ${libm}/math/s_floor.c
+	${libm}/math/s_frexp.c
+    ${libm}/math/s_ldexp.c
+	${libm}/math/s_signif.c
+    ${libm}/math/s_sin.c
+	${libm}/math/s_tan.c
+    ${libm}/math/s_tanh.c
+	${libm}/math/w_exp2.c
+    ${libm}/math/w_tgamma.c
+	${libm}/math/kf_rem_pio2.c
+	${libm}/math/kf_cos.c
+    ${libm}/math/kf_sin.c
+    ${libm}/math/kf_tan.c
+	${libm}/math/ef_acos.c
+    ${libm}/math/ef_acosh.c
+    ${libm}/math/ef_asin.c
+    ${libm}/math/ef_atan2.c
+	${libm}/math/ef_atanh.c
+    ${libm}/math/ef_cosh.c
+    ${libm}/math/ef_exp.c
+    ${libm}/math/ef_fmod.c
+	${libm}/math/ef_tgamma.c
+    ${libm}/math/ef_hypot.c
+    ${libm}/math/ef_j0.c
+	${libm}/math/ef_j1.c
+    ${libm}/math/ef_jn.c
+    ${libm}/math/erf_lgamma.c
+	${libm}/math/ef_log.c
+    ${libm}/math/ef_log10.c
+    ${libm}/math/ef_pow.c
+    ${libm}/math/ef_rem_pio2.c
+    ${libm}/math/ef_remainder.c
+	${libm}/math/ef_scalb.c
+    ${libm}/math/ef_sinh.c
+    # ${libm}/math/ef_sqrt.c
+	${libm}/math/wf_acos.c
+    ${libm}/math/wf_acosh.c
+    ${libm}/math/wf_asin.c
+    ${libm}/math/wf_atan2.c
+	${libm}/math/wf_atanh.c
+    ${libm}/math/wf_cosh.c
+    ${libm}/math/wf_exp.c
+    ${libm}/math/wf_fmod.c
+	${libm}/math/wf_gamma.c
+    ${libm}/math/wrf_gamma.c
+    ${libm}/math/wf_hypot.c
+    ${libm}/math/wf_j0.c
+	${libm}/math/wf_j1.c
+    ${libm}/math/wf_jn.c
+    ${libm}/math/wf_lgamma.c
+    ${libm}/math/wrf_lgamma.c
+	${libm}/math/wf_log.c
+    ${libm}/math/wf_log10.c
+    ${libm}/math/wf_pow.c
+    ${libm}/math/wf_remainder.c
+	${libm}/math/wf_scalb.c
+    ${libm}/math/wf_sinh.c
+    ${libm}/math/wf_sqrt.c
+	${libm}/math/wf_sincos.c
+	${libm}/math/wf_drem.c
+	${libm}/math/sf_asinh.c
+    ${libm}/math/sf_atan.c
+    # ${libm}/math/sf_ceil.c
+	${libm}/math/sf_cos.c
+    ${libm}/math/sf_erf.c
+    ${libm}/math/sf_fabs.c
+    # ${libm}/math/sf_floor.c
+	${libm}/math/sf_frexp.c
+    ${libm}/math/sf_ldexp.c
+	${libm}/math/sf_signif.c
+    ${libm}/math/sf_sin.c
+	${libm}/math/sf_tan.c
+    ${libm}/math/sf_tanh.c
+	${libm}/math/wf_exp2.c
+    ${libm}/math/wf_tgamma.c
+	${libm}/math/wf_log2.c
+	${libm}/math/el_hypot.c
+)
 
 set(LIBM_COMMON_SOURCES
 	${libm}/common/s_finite.c
@@ -21,7 +160,7 @@ set(LIBM_COMMON_SOURCES
 	${libm}/common/s_nan.c
 	${libm}/common/s_nextafter.c
 	${libm}/common/s_pow10.c
-	${libm}/common/s_rint.c
+	# ${libm}/common/s_rint.c
 	${libm}/common/s_logb.c
 	${libm}/common/s_log2.c
 	${libm}/common/s_fdim.c
@@ -33,12 +172,12 @@ set(LIBM_COMMON_SOURCES
 	${libm}/common/s_llrint.c
 	${libm}/common/s_lround.c
 	${libm}/common/s_llround.c
-	${libm}/common/s_nearbyint.c
+	# ${libm}/common/s_nearbyint.c
 	${libm}/common/s_remquo.c
-	${libm}/common/s_round.c
+	# ${libm}/common/s_round.c
 	${libm}/common/s_scalbln.c
 	${libm}/common/s_signbit.c
-	${libm}/common/s_trunc.c
+	# ${libm}/common/s_trunc.c
 	${libm}/common/exp.c
 	${libm}/common/exp2.c
 	${libm}/common/exp_data.c
@@ -69,7 +208,7 @@ set(LIBM_COMMON_FLOAT_SOURCES
     ${libm}/common/sf_nan.c
     ${libm}/common/sf_nextafter.c
     ${libm}/common/sf_pow10.c
-	${libm}/common/sf_rint.c
+	# ${libm}/common/sf_rint.c
     ${libm}/common/sf_logb.c
 	${libm}/common/sf_fdim.c
     ${libm}/common/sf_fma.c
@@ -80,11 +219,11 @@ set(LIBM_COMMON_FLOAT_SOURCES
     ${libm}/common/sf_llrint.c
 	${libm}/common/sf_lround.c
     ${libm}/common/sf_llround.c
-    ${libm}/common/sf_nearbyint.c
+    # ${libm}/common/sf_nearbyint.c
     ${libm}/common/sf_remquo.c
-    ${libm}/common/sf_round.c
+    # ${libm}/common/sf_round.c
 	${libm}/common/sf_scalbln.c
-    ${libm}/common/sf_trunc.c
+    # ${libm}/common/sf_trunc.c
 	${libm}/common/sf_exp.c
     ${libm}/common/sf_exp2.c
     ${libm}/common/sf_exp2_data.c
@@ -101,103 +240,58 @@ set(LIBM_COMMON_FLOAT_SOURCES
     ${libm}/common/math_errf.c
 )
 
-
-#if have long double
-set(LIBM_COMMON_LONG_DOUBLE_SOURCES
-	${libm}/common/atanl.c
-    ${libm}/common/cosl.c
-    ${libm}/common/sinl.c
-    ${libm}/common/tanl.c
-    ${libm}/common/tanhl.c
-    ${libm}/common/frexpl.c
-    ${libm}/common/modfl.c
-    ${libm}/common/ceill.c
-    ${libm}/common/fabsl.c
-	${libm}/common/floorl.c
-    ${libm}/common/log1pl.c
-    ${libm}/common/expm1l.c
-    ${libm}/common/acosl.c
-    ${libm}/common/asinl.c
-    ${libm}/common/atan2l.c
-    ${libm}/common/coshl.c
-    ${libm}/common/sinhl.c
-	${libm}/common/expl.c
-    ${libm}/common/ldexpl.c
-    ${libm}/common/logl.c
-    ${libm}/common/log10l.c
-    ${libm}/common/powl.c
-    ${libm}/common/sqrtl.c
-    ${libm}/common/fmodl.c
-    ${libm}/common/hypotl.c
-	${libm}/common/copysignl.c
-    ${libm}/common/nanl.c
-    ${libm}/common/ilogbl.c
-    ${libm}/common/asinhl.c
-    ${libm}/common/cbrtl.c
-    ${libm}/common/nextafterl.c
-    ${libm}/common/rintl.c
-	${libm}/common/scalbnl.c
-    ${libm}/common/exp2l.c
-    ${libm}/common/scalblnl.c
-    ${libm}/common/tgammal.c
-    ${libm}/common/nearbyintl.c
-    ${libm}/common/lrintl.c
-    ${libm}/common/llrintl.c
-	${libm}/common/roundl.c
-    ${libm}/common/lroundl.c
-    ${libm}/common/llroundl.c
-    ${libm}/common/truncl.c
-    ${libm}/common/remquol.c
-    ${libm}/common/fdiml.c
-    ${libm}/common/fmaxl.c
-    ${libm}/common/fminl.c
-	${libm}/common/fmal.c
-    ${libm}/common/acoshl.c
-    ${libm}/common/atanhl.c
-    ${libm}/common/remainderl.c
-    ${libm}/common/lgammal.c
-    ${libm}/common/erfl.c
-    ${libm}/common/erfcl.c
-	${libm}/common/logbl.c
-    ${libm}/common/nexttowardf.c
-    ${libm}/common/nexttoward.c
-    ${libm}/common/nexttowardl.c
-    ${libm}/common/log2l.c
-	${libm}/common/sl_finite.c
+set(LIBM_COMPLEX_SOURCES
+	${libm}/complex/cabs.c
+    ${libm}/complex/cacos.c
+    ${libm}/complex/cacosh.c
+    ${libm}/complex/carg.c
+    ${libm}/complex/casin.c
+    ${libm}/complex/casinh.c
+	${libm}/complex/catan.c
+    ${libm}/complex/catanh.c
+    ${libm}/complex/ccos.c
+    ${libm}/complex/ccosh.c
+    ${libm}/complex/cephes_subr.c
+	${libm}/complex/cexp.c
+    ${libm}/complex/cimag.c
+    ${libm}/complex/clog.c
+    ${libm}/complex/clog10.c
+    ${libm}/complex/conj.c
+	${libm}/complex/cpow.c
+    ${libm}/complex/cproj.c
+    ${libm}/complex/creal.c
+	${libm}/complex/csin.c
+    ${libm}/complex/csinh.c
+    ${libm}/complex/csqrt.c
+    ${libm}/complex/ctan.c
+    ${libm}/complex/ctanh.c
+	${libm}/complex/cabsf.c
+    ${libm}/complex/casinf.c
+    ${libm}/complex/ccosf.c
+    ${libm}/complex/cimagf.c
+    ${libm}/complex/cprojf.c
+	${libm}/complex/csqrtf.c
+    ${libm}/complex/cacosf.c
+    ${libm}/complex/casinhf.c
+    ${libm}/complex/ccoshf.c
+    ${libm}/complex/clogf.c
+    ${libm}/complex/clog10f.c
+	${libm}/complex/crealf.c
+    ${libm}/complex/ctanf.c
+    ${libm}/complex/cacoshf.c
+    ${libm}/complex/catanf.c
+	${libm}/complex/cephes_subrf.c
+    ${libm}/complex/conjf.c
+    ${libm}/complex/csinf.c
+    ${libm}/complex/ctanhf.c
+	${libm}/complex/cargf.c
+    ${libm}/complex/catanhf.c
+    ${libm}/complex/cexpf.c
+    ${libm}/complex/cpowf.c
+    ${libm}/complex/csinhf.c
 )
 
-set(LIBM_COMMON_CHEWOUT_FILES
-	${libm}/common/s_cbrt.def
-    ${libm}/common/s_copysign.def
-    ${libm}/common/s_exp10.def
-    ${libm}/common/s_expm1.def
-    ${libm}/common/s_ilogb.def
-	${libm}/common/s_infinity.def
-    ${libm}/common/s_isnan.def
-    ${libm}/common/s_log1p.def
-    ${libm}/common/s_modf.def
-	${libm}/common/s_nan.def
-    ${libm}/common/s_nextafter.def
-    ${libm}/common/s_pow10.def
-    ${libm}/common/s_scalbn.def
-	${libm}/common/s_fdim.def
-    ${libm}/common/s_fma.def
-    ${libm}/common/s_fmax.def
-    ${libm}/common/s_fmin.def
-	${libm}/common/s_logb.def
-    ${libm}/common/s_log2.def
-    ${libm}/common/s_lrint.def
-    ${libm}/common/s_lround.def
-    ${libm}/common/s_nearbyint.def
-	${libm}/common/s_remquo.def
-    ${libm}/common/s_rint.def
-    ${libm}/common/s_round.def
-    ${libm}/common/s_signbit.def
-    ${libm}/common/s_trunc.def
-	${libm}/common/isgreater.def
-)
-
-set(LIBM_MACHINE_FILES
+set(LIBM_MACHINE_SOURCES
 	${libm}/machine/arm/e_sqrt.c
 	${libm}/machine/arm/ef_sqrt.c
 	${libm}/machine/arm/s_ceil.c
@@ -231,13 +325,33 @@ set(LIBM_MACHINE_FILES
 	${libm}/machine/arm/fedisableexcept.c
 )
 
-target_sources(metamodule-plugin-libc PUBLIC
-    ${LIBM_COMMON_SOURCES}
-    ${LIBM_COMMON_FLOAT_SOURCES}
-    # ${LIBM_COMMON_LONG_DOUBLE_SOURCES}
-    # ${LIBM_COMMON_CHEWOUT_FILES}
-    ${LIBM_MACHINE_FILES}
+set(libc ${CMAKE_CURRENT_LIST_DIR}/newlib/libc)
+
+set(LIBC_ERRNO_SOURCES
+	${libc}/errno/errno.c
 )
 
+# target_sources(metamodule-plugin-libc PRIVATE
+set(metamodule-plugin-libc-sources
+	${LIBM_MATH_SOURCES}
+    ${LIBM_COMMON_SOURCES}
+    ${LIBM_COMMON_FLOAT_SOURCES}
+	${LIBM_COMPLEX_SOURCES}
+	${LIBM_MACHINE_SOURCES}
+	${LIBC_ERRNO_SOURCES}
+	PARENT_SCOPE
+)
 
-# ${CMAKE_CURRENT_LIST_DIR}/metamodule-plugin-libc/newlib/libc/string/strcmp.c
+target_include_directories(metamodule-plugin-libc INTERFACE
+	${libm}/common
+)
+
+target_compile_options(metamodule-plugin-libc INTERFACE
+	-fbuiltin
+	-fno-math-errno
+)
+
+target_compile_definitions(metamodule-plugin-libc INTERFACE
+	# __OBSOLETE_MATH=1
+)
+
