@@ -1,4 +1,5 @@
-add_library(metamodule-plugin-libc INTERFACE)
+add_library(metamodule-plugin-libc STATIC)
+add_library(metamodule::plugin-libc ALIAS metamodule-plugin-libc)
 
 set(libm ${CMAKE_CURRENT_LIST_DIR}/newlib/libm)
 
@@ -331,27 +332,22 @@ set(LIBC_ERRNO_SOURCES
 	${libc}/errno/errno.c
 )
 
-# target_sources(metamodule-plugin-libc PRIVATE
-set(metamodule-plugin-libc-sources
+target_sources(metamodule-plugin-libc PRIVATE
 	${LIBM_MATH_SOURCES}
     ${LIBM_COMMON_SOURCES}
     ${LIBM_COMMON_FLOAT_SOURCES}
 	${LIBM_COMPLEX_SOURCES}
 	${LIBM_MACHINE_SOURCES}
 	${LIBC_ERRNO_SOURCES}
-	PARENT_SCOPE
+    ${CMAKE_CURRENT_LIST_DIR}/dso_handle.c
 )
 
-target_include_directories(metamodule-plugin-libc INTERFACE
+target_include_directories(metamodule-plugin-libc PRIVATE
 	${libm}/common
 )
 
-target_compile_options(metamodule-plugin-libc INTERFACE
+target_compile_options(metamodule-plugin-libc PRIVATE
 	-fbuiltin
 	-fno-math-errno
-)
-
-target_compile_definitions(metamodule-plugin-libc INTERFACE
-	# __OBSOLETE_MATH=1
 )
 
