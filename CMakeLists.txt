@@ -1,12 +1,9 @@
 add_library(metamodule-plugin-libc STATIC)
 add_library(metamodule::plugin-libc ALIAS metamodule-plugin-libc)
 
-include(libm.cmake)
-include(libc.cmake)
-# include(libclib.cmake)
-include(libgcc.cmake)
-include(libstdcpp.cmake)
-
+target_sources(metamodule-plugin-libc PRIVATE
+    ${CMAKE_CURRENT_LIST_DIR}/dso_handle.c
+)
 
 target_compile_options(metamodule-plugin-libc PRIVATE
 	-fbuiltin
