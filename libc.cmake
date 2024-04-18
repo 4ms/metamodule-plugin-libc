@@ -5,6 +5,303 @@ set(LIBC_ERRNO_SOURCES
     ${CMAKE_CURRENT_LIST_DIR}/dso_handle.c
 )
 
+set(LIBC_STRING_SOURCES
+	${libc}/string/bcopy.c
+	${libc}/string/bzero.c
+	${libc}/string/explicit_bzero.c
+	${libc}/string/ffsl.c
+	${libc}/string/ffsll.c
+	${libc}/string/fls.c
+	${libc}/string/flsl.c
+	${libc}/string/flsll.c
+	${libc}/string/index.c
+	${libc}/string/memchr.c
+	${libc}/string/memcmp.c
+	${libc}/string/memcpy.c
+	${libc}/string/memmove.c
+	${libc}/string/memset.c
+	${libc}/string/rindex.c
+	${libc}/string/strcasecmp.c
+	${libc}/string/strcat.c
+	${libc}/string/strchr.c
+	${libc}/string/strcmp.c
+	${libc}/string/strcoll.c
+	${libc}/string/strcpy.c
+	${libc}/string/strcspn.c
+	${libc}/string/strdup.c
+	${libc}/string/strdup_r.c
+	${libc}/string/strerror.c
+	${libc}/string/strerror_r.c
+	${libc}/string/strlcat.c
+	${libc}/string/strlcpy.c
+	${libc}/string/strlen.c 
+	${libc}/string/strlwr.c
+	${libc}/string/strncasecmp.c
+	${libc}/string/strncat.c
+	${libc}/string/strncmp.c
+	${libc}/string/strncpy.c
+	${libc}/string/strnlen.c
+	${libc}/string/strnstr.c
+	${libc}/string/strpbrk.c
+	${libc}/string/strrchr.c
+	${libc}/string/strsep.c
+	${libc}/string/strsignal.c
+	${libc}/string/strspn.c
+	${libc}/string/strtok.c
+	${libc}/string/strtok_r.c
+	${libc}/string/strupr.c
+	${libc}/string/strxfrm.c 
+	${libc}/string/strstr.c
+	${libc}/string/swab.c
+	${libc}/string/timingsafe_bcmp.c
+	${libc}/string/timingsafe_memcmp.c
+	${libc}/string/u_strerr.c
+	${libc}/string/wcscat.c
+	${libc}/string/wcschr.c
+	${libc}/string/wcscmp.c
+	${libc}/string/wcscoll.c
+	${libc}/string/wcscpy.c
+	${libc}/string/wcscspn.c
+	${libc}/string/wcslcat.c
+	${libc}/string/wcslcpy.c
+	${libc}/string/wcslen.c
+	${libc}/string/wcsncat.c
+	${libc}/string/wcsncmp.c
+	${libc}/string/wcsncpy.c
+	${libc}/string/wcsnlen.c
+	${libc}/string/wcspbrk.c
+	${libc}/string/wcsrchr.c
+	${libc}/string/wcsspn.c
+	${libc}/string/wcsstr.c
+	${libc}/string/wcstok.c
+	${libc}/string/wcswidth.c
+	${libc}/string/wcsxfrm.c
+	${libc}/string/wcwidth.c
+	${libc}/string/wmemchr.c
+	${libc}/string/wmemcmp.c
+	${libc}/string/wmemcpy.c
+	${libc}/string/wmemmove.c
+	${libc}/string/wmemset.c
+	${libc}/string/xpg_strerror_r.c
+)
+
+# From newlib config.log:
+set(ELIX_LEVEL_0 0)
+set(ELIX_LEVEL_1 1)
+set(ELIX_LEVEL_2 1)
+set(ELIX_LEVEL_3 1)
+set(ELIX_LEVEL_4 1)
+
+if(!${ELIX_LEVEL_1})
+	set(LIBC_STRING_SOURCES
+		${LIBC_STRING_SOURCES}
+		${libc}/string/bcmp.c
+		${libc}/string/memccpy.c
+		${libc}/string/mempcpy.c
+		${libc}/string/stpcpy.c
+		${libc}/string/stpncpy.c
+		${libc}/string/strndup.c
+		${libc}/string/strcasestr.c
+		${libc}/string/strchrnul.c
+		${libc}/string/strndup_r.c
+		${libc}/string/wcpcpy.c
+		${libc}/string/wcpncpy.c
+		${libc}/string/wcsdup.c
+	)
+endif()
+
+if(!${ELIX_LEVEL_1} AND !${ELIX_LEVEL_2} AND !${ELIX_LEVEL_3})
+	set(LIBC_STRING_SOURCES
+		${LIBC_STRING_SOURCES}
+		${libc}/string/gnu_basename.c
+		${libc}/string/memmem.c
+		${libc}/string/memrchr.c
+		${libc}/string/rawmemchr.c
+		${libc}/string/strcasecmp_l.c
+		${libc}/string/strcoll_l.c
+		${libc}/string/strncasecmp_l.c
+		${libc}/string/strverscmp.c
+		${libc}/string/strxfrm_l.c
+		${libc}/string/wcscasecmp.c
+		${libc}/string/wcscasecmp_l.c
+		${libc}/string/wcscoll_l.c
+		${libc}/string/wcsncasecmp.c
+		${libc}/string/wcsncasecmp_l.c
+		${libc}/string/wcsxfrm_l.c
+		${libc}/string/wmempcpy.c
+	)
+endif()
+
+set(LIBC_STDLIB_SOURCES
+	${libc}/stdlib/__adjust.c
+	${libc}/stdlib/__atexit.c
+	${libc}/stdlib/__call_atexit.c
+	${libc}/stdlib/__exp10.c
+	${libc}/stdlib/__ten_mu.c
+	${libc}/stdlib/_Exit.c
+	# ${libc}/stdlib/abort.c # Calls raise()
+	${libc}/stdlib/abs.c
+	${libc}/stdlib/aligned_alloc.c
+	# ${libc}/stdlib/assert.c
+	${libc}/stdlib/atexit.c
+	${libc}/stdlib/atof.c
+	${libc}/stdlib/atoff.c
+	${libc}/stdlib/atoi.c
+	${libc}/stdlib/atol.c
+	${libc}/stdlib/calloc.c
+	${libc}/stdlib/callocr.c
+	${libc}/stdlib/cfreer.c
+	${libc}/stdlib/div.c
+	${libc}/stdlib/dtoa.c
+	${libc}/stdlib/dtoastub.c
+	${libc}/stdlib/environ.c
+	${libc}/stdlib/envlock.c
+	${libc}/stdlib/eprintf.c
+	${libc}/stdlib/exit.c
+	${libc}/stdlib/freer.c
+	${libc}/stdlib/gdtoa-gethex.c
+	${libc}/stdlib/gdtoa-hexnan.c
+	${libc}/stdlib/getenv.c
+	${libc}/stdlib/getenv_r.c
+	${libc}/stdlib/imaxabs.c
+	${libc}/stdlib/imaxdiv.c
+	${libc}/stdlib/itoa.c
+	${libc}/stdlib/labs.c
+	${libc}/stdlib/ldiv.c
+	${libc}/stdlib/ldtoa.c
+	${libc}/stdlib/gdtoa-ldtoa.c
+	${libc}/stdlib/gdtoa-gdtoa.c
+	${libc}/stdlib/gdtoa-dmisc.c
+	${libc}/stdlib/gdtoa-gmisc.c
+	${libc}/stdlib/mallinfor.c
+	${libc}/stdlib/malloc.c
+	${libc}/stdlib/mallocr.c
+	${libc}/stdlib/mallstatsr.c
+	${libc}/stdlib/mblen.c
+	${libc}/stdlib/mblen_r.c
+	${libc}/stdlib/mbstowcs.c
+	${libc}/stdlib/mbstowcs_r.c
+	${libc}/stdlib/mbtowc.c
+	${libc}/stdlib/mbtowc_r.c
+	${libc}/stdlib/mlock.c
+	${libc}/stdlib/mprec.c
+	${libc}/stdlib/msizer.c
+	${libc}/stdlib/mstats.c
+	${libc}/stdlib/on_exit_args.c
+	${libc}/stdlib/quick_exit.c
+	${libc}/stdlib/rand.c
+	${libc}/stdlib/rand_r.c
+	${libc}/stdlib/random.c
+	${libc}/stdlib/realloc.c
+	${libc}/stdlib/reallocarray.c
+	${libc}/stdlib/reallocf.c
+	${libc}/stdlib/reallocr.c
+	${libc}/stdlib/sb_charsets.c
+	${libc}/stdlib/strtod.c
+	${libc}/stdlib/strtoimax.c
+	${libc}/stdlib/strtol.c
+	${libc}/stdlib/strtoul.c
+	${libc}/stdlib/strtoumax.c
+	${libc}/stdlib/utoa.c
+	${libc}/stdlib/wcstod.c
+	${libc}/stdlib/wcstoimax.c
+	${libc}/stdlib/wcstol.c
+	${libc}/stdlib/wcstoul.c
+	${libc}/stdlib/wcstoumax.c
+	${libc}/stdlib/wcstombs.c
+	${libc}/stdlib/wcstombs_r.c
+	${libc}/stdlib/wctomb.c
+	${libc}/stdlib/wctomb_r.c
+	#
+	${libc}/stdlib/arc4random.c
+	${libc}/stdlib/arc4random_uniform.c
+	${libc}/stdlib/cxa_atexit.c
+	${libc}/stdlib/cxa_finalize.c
+	${libc}/stdlib/drand48.c
+	${libc}/stdlib/ecvtbuf.c
+	${libc}/stdlib/efgcvt.c
+	${libc}/stdlib/erand48.c
+	${libc}/stdlib/jrand48.c
+	${libc}/stdlib/lcong48.c
+	${libc}/stdlib/lrand48.c
+	${libc}/stdlib/mrand48.c
+	${libc}/stdlib/msize.c
+	${libc}/stdlib/mtrim.c
+	${libc}/stdlib/nrand48.c
+	${libc}/stdlib/rand48.c
+	${libc}/stdlib/seed48.c
+	${libc}/stdlib/srand48.c
+	${libc}/stdlib/strtoll.c
+	${libc}/stdlib/strtoll_r.c
+	${libc}/stdlib/strtoull.c
+	${libc}/stdlib/strtoull_r.c
+	${libc}/stdlib/wcstoll.c
+	${libc}/stdlib/wcstoll_r.c
+	${libc}/stdlib/wcstoull.c
+	${libc}/stdlib/wcstoull_r.c
+	${libc}/stdlib/atoll.c
+	${libc}/stdlib/llabs.c
+	${libc}/stdlib/lldiv.c
+
+)
+
+set(STDLIB_ELIX_2_SOURCES
+	${libc}/stdlib/a64l.c
+	${libc}/stdlib/btowc.c
+	${libc}/stdlib/getopt.c
+	${libc}/stdlib/getsubopt.c
+	${libc}/stdlib/l64a.c
+	${libc}/stdlib/malign.c
+	${libc}/stdlib/malignr.c
+	${libc}/stdlib/malloptr.c
+	${libc}/stdlib/mbrlen.c
+	${libc}/stdlib/mbrtowc.c
+	${libc}/stdlib/mbsinit.c
+	${libc}/stdlib/mbsnrtowcs.c
+	${libc}/stdlib/mbsrtowcs.c
+	${libc}/stdlib/on_exit.c
+	${libc}/stdlib/pvallocr.c
+	${libc}/stdlib/valloc.c
+	${libc}/stdlib/vallocr.c
+	${libc}/stdlib/wcrtomb.c
+	${libc}/stdlib/wcsnrtombs.c
+	${libc}/stdlib/wcsrtombs.c
+	${libc}/stdlib/wctob.c
+)
+
+set(STDLIB_ELIX_3_SOURCES
+	${libc}/stdlib/putenv.c
+	${libc}/stdlib/putenv_r.c
+	${libc}/stdlib/setenv.c
+	${libc}/stdlib/setenv_r.c
+)
+
+set (STDLIB_ELIX_4_SOURCES
+	${libc}/stdlib/rpmatch.c
+	${libc}/stdlib/system.c
+)
+
+if(${ELIX_LEVEL_1})
+set(LIBC_STDLIB_ELIX_SOURCES)
+else()
+if(${ELIX_LEVEL_2})
+set(LIBC_STDLIB_ELIX_SOURCES ${STDLIB_ELIX_2_SOURCES})
+else()
+if(${ELIX_LEVEL_3})
+set(LIBC_STDLIB_ELIX_SOURCES ${STDLIB_ELIX_2_SOURCES} ${STDLIB_ELIX_3_SOURCES})
+else()
+set(LIBC_STDLIB_ELIX_SOURCES ${STDLIB_ELIX_2_SOURCES} ${STDLIB_ELIX_3_SOURCES} ${STDLIB_ELIX_4_SOURCES})
+endif()
+endif()
+endif()
+
 target_sources(metamodule-plugin-libc PRIVATE
 	${LIBC_ERRNO_SOURCES}
+	${LIBC_STRING_SOURCES}
+	${LIBC_STDLIB_SOURCES}
+	${LIBC_STDLIB_ELIX_SOURCES}
+)
+
+target_include_directories(metamodule-plugin-libc PRIVATE
+	${libc}/string
 )

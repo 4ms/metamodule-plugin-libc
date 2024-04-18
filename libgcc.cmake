@@ -25,9 +25,9 @@ target_compile_definitions(metamodule-plugin-libc PRIVATE
     L_aeabi_uldivmod
 )
 
-target_sources(metamodule-plugin-libc PRIVATE
-	${LIBGCC_CONFIG_ARM_SOURCES}
-)
+# target_sources(metamodule-plugin-libc PRIVATE
+# 	${LIBGCC_CONFIG_ARM_SOURCES}
+# )
 
 if(PLUGIN_ENABLE_EXCEPTIONS)
     target_sources(metamodule-plugin-libc PRIVATE
