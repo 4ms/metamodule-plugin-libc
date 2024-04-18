@@ -1,5 +1,4 @@
-set(libstdcpp ${CMAKE_CURRENT_LIST_DIR}/libstdc++-v3)
-
+set(libstdcpp ${CMAKE_CURRENT_LIST_DIR}/libstdc++-v3/src)
 
 set(LIBSTDCPP_C98_SOURCES
 	${libstdcpp}/c++98/bitmap_allocator.cc
@@ -65,12 +64,36 @@ set(LIBSTDCPP_C11_SOURCES
 	${libstdcpp}/c++11/valarray.cc
 )
 
+set(LIBSTDCPP_C17_SOURCES
+	${libstdcpp}/c++17/floating_from_chars.cc
+	${libstdcpp}/c++17/floating_to_chars.cc
+	# ${libstdcpp}/c++17/fs_dir.cc
+	# ${libstdcpp}/c++17/fs_ops.cc
+	# ${libstdcpp}/c++17/fs_path.cc
+	${libstdcpp}/c++17/memory_resource.cc
+	${libstdcpp}/c++17/ostream-inst.cc
+	${libstdcpp}/c++17/string-inst.cc
+)
+
+set(LIBSTDCPP_C20_SOURCES
+	${libstdcpp}/c++20/sstream-inst.cc
+)
+
 set(LIBSTDCPP_FILESYSTEM_SOURCES
-	${libstdcpp}/filesystem/dir.cc
-	${libstdcpp}/filesystem/ops.cc
-	${libstdcpp}/filesystem/path.cc
+	# ${libstdcpp}/filesystem/dir.cc
+	# ${libstdcpp}/filesystem/ops.cc
+	# ${libstdcpp}/filesystem/path.cc
 )
 
 set(LIBSTDCPP_SHARED_SOURCES
 	${libstdcpp}/shared/hashtable-aux.cc
+)
+
+target_sources(metamodule-plugin-libc PRIVATE
+    ${LIBCPP_C98_SOURCES}
+    ${LIBCPP_C11_SOURCES}
+    ${LIBCPP_C17_SOURCES}
+    ${LIBCPP_C20_SOURCES}
+    ${LIBSTDCPP_FILESYSTEM_SOURCES}
+    ${LIBSTDCPP_SHARED_SOURCES}
 )
