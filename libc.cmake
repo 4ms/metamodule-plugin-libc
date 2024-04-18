@@ -680,7 +680,6 @@ target_include_directories(metamodule-plugin-libc PRIVATE
 
 target_compile_options(metamodule-plugin-libc PRIVATE
     -Wno-sign-compare
-    -Wno-pointer-sign
     -Wno-maybe-uninitialized
     -Wno-stringop-truncation
     -Wno-unused-but-set-variable
@@ -688,8 +687,9 @@ target_compile_options(metamodule-plugin-libc PRIVATE
     -Wno-uninitialized
     -Wno-unused-function
     -Wno-unused-label
-    -Wno-discarded-qualifiers
     -Wno-prio-ctor-dtor #
+	"$<$<COMPILE_LANGUAGE:C>:-Wno-pointer-sign>"
+	"$<$<COMPILE_LANGUAGE:C>:-Wno-discarded-qualifiers>"
 )
 
 target_compile_definitions(metamodule-plugin-libc PRIVATE
