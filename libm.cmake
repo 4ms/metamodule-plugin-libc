@@ -334,3 +334,7 @@ target_sources(metamodule-plugin-libc PRIVATE
 target_include_directories(metamodule-plugin-libc PRIVATE
 	${libm}/common
 )
+
+target_compile_options(metamodule-plugin-libc PRIVATE
+    -Wno-sign-compare
+)
