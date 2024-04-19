@@ -3,7 +3,6 @@ add_library(metamodule::plugin-libc ALIAS metamodule-plugin-libc)
 
 if (METAMODULE_PLUGIN_STATIC_LIBC)
     target_sources(metamodule-plugin-libc PRIVATE
-        # ${libc}/errno/errno.c
         ${CMAKE_CURRENT_LIST_DIR}/dso_handle.c
     )
 else()
@@ -11,7 +10,6 @@ else()
     include(libc.cmake)
 endif()
 
-include(libgcc.cmake)
 include(libsupcpp.cmake)
 include(libstdcpp.cmake)
 
