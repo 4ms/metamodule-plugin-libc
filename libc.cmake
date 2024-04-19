@@ -585,51 +585,44 @@ set(LIBC_STRING_SOURCES
 	${libc}/string/xpg_strerror_r.c
 )
 
-# From newlib config.log:
-set(ELIX_LEVEL_0 0)
-set(ELIX_LEVEL_1 1)
-set(ELIX_LEVEL_2 1)
-set(ELIX_LEVEL_3 1)
-set(ELIX_LEVEL_4 1)
-
 # if(!${ELIX_LEVEL_1})
-	set(LIBC_STRING_SOURCES
-		${LIBC_STRING_SOURCES}
-		${libc}/string/bcmp.c
-		${libc}/string/memccpy.c
-		${libc}/string/mempcpy.c
-		${libc}/string/stpcpy.c
-		${libc}/string/stpncpy.c
-		${libc}/string/strndup.c
-		${libc}/string/strcasestr.c
-		${libc}/string/strchrnul.c
-		${libc}/string/strndup_r.c
-		${libc}/string/wcpcpy.c
-		${libc}/string/wcpncpy.c
-		${libc}/string/wcsdup.c
-	)
+set(LIBC_STRING_SOURCES
+    ${LIBC_STRING_SOURCES}
+    ${libc}/string/bcmp.c
+    ${libc}/string/memccpy.c
+    ${libc}/string/mempcpy.c
+    ${libc}/string/stpcpy.c
+    ${libc}/string/stpncpy.c
+    ${libc}/string/strndup.c
+    ${libc}/string/strcasestr.c
+    ${libc}/string/strchrnul.c
+    ${libc}/string/strndup_r.c
+    ${libc}/string/wcpcpy.c
+    ${libc}/string/wcpncpy.c
+    ${libc}/string/wcsdup.c
+)
 # endif()
 
 # if(!${ELIX_LEVEL_1} AND !${ELIX_LEVEL_2} AND !${ELIX_LEVEL_3})
-	set(LIBC_STRING_SOURCES
-		${LIBC_STRING_SOURCES}
-		${libc}/string/gnu_basename.c
-		${libc}/string/memmem.c
-		${libc}/string/memrchr.c
-		${libc}/string/rawmemchr.c
-		${libc}/string/strcasecmp_l.c
-		${libc}/string/strcoll_l.c
-		${libc}/string/strncasecmp_l.c
-		${libc}/string/strverscmp.c
-		${libc}/string/strxfrm_l.c
-		${libc}/string/wcscasecmp.c
-		${libc}/string/wcscasecmp_l.c
-		${libc}/string/wcscoll_l.c
-		${libc}/string/wcsncasecmp.c
-		${libc}/string/wcsncasecmp_l.c
-		${libc}/string/wcsxfrm_l.c
-		${libc}/string/wmempcpy.c
-	)
+set(LIBC_STRING_SOURCES
+    ${LIBC_STRING_SOURCES}
+    ${libc}/string/gnu_basename.c
+    ${libc}/string/memmem.c
+    ${libc}/string/memrchr.c
+    ${libc}/string/rawmemchr.c
+    ${libc}/string/strcasecmp_l.c
+    ${libc}/string/strcoll_l.c
+    ${libc}/string/strncasecmp_l.c
+    ${libc}/string/strverscmp.c
+    ${libc}/string/strxfrm_l.c
+    ${libc}/string/wcscasecmp.c
+    ${libc}/string/wcscasecmp_l.c
+    ${libc}/string/wcscoll_l.c
+    ${libc}/string/wcsncasecmp.c
+    ${libc}/string/wcsncasecmp_l.c
+    ${libc}/string/wcsxfrm_l.c
+    ${libc}/string/wmempcpy.c
+)
 # endif()
 
 ########### time
@@ -690,11 +683,9 @@ target_compile_options(metamodule-plugin-libc PRIVATE
     -Wno-prio-ctor-dtor #
 	"$<$<COMPILE_LANGUAGE:C>:-Wno-pointer-sign>"
 	"$<$<COMPILE_LANGUAGE:C>:-Wno-discarded-qualifiers>"
+    -I${CMAKE_CURRENT_LIST_DIR}/include
 )
 
 target_compile_definitions(metamodule-plugin-libc PRIVATE
-    # HAVE_MMAP=0
-    # HAVE_MREMAP=0
     MALLOC_PROVIDED
-    # _REENT_ONLY
 )
