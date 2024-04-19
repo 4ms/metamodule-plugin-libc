@@ -9,9 +9,9 @@ if (METAMODULE_PLUGIN_STATIC_LIBC)
 else()
     include(libm.cmake)
     include(libc.cmake)
-    include(libgcc.cmake)
 endif()
 
+include(libgcc.cmake)
 include(libsupcpp.cmake)
 include(libstdcpp.cmake)
 
