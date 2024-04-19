@@ -23,7 +23,7 @@ set(LIBSUPCPP_SOURCES
 	# ${libsupcpp}/eh_aux_runtime.cc
 	# ${libsupcpp}/eh_call.cc
 	# ${libsupcpp}/eh_catch.cc
-	# ${libsupcpp}/eh_exception.cc
+	${libsupcpp}/eh_exception.cc
 	# ${libsupcpp}/eh_globals.cc
 	# ${libsupcpp}/eh_personality.cc
 	# ${libsupcpp}/eh_ptr.cc
