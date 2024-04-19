@@ -131,22 +131,22 @@ set(LIBC_LOCALE_SOURCES
 ########### machine/arm
 # These are removed until we get ASM compilation working
 set(LIBC_MACHINE_ARM_SOURCES
-	# ${libc}/machine/arm/setjmp.S 
-    # ${libc}/machine/arm/strcmp.S 
-    # ${libc}/machine/arm/strcpy.c
-	# ${libc}/machine/arm/aeabi_memcpy.c 
-    # ${libc}/machine/arm/aeabi_memcpy-armv7a.S
-	# ${libc}/machine/arm/aeabi_memmove.c 
-    # ${libc}/machine/arm/aeabi_memmove-soft.S
-	# ${libc}/machine/arm/aeabi_memset.c 
-    # ${libc}/machine/arm/aeabi_memset-soft.S 
-    # ${libc}/machine/arm/aeabi_memclr.c
-	# ${libc}/machine/arm/memchr-stub.c
-	# ${libc}/machine/arm/memchr.S
-	# ${libc}/machine/arm/memcpy-stub.c
-	# ${libc}/machine/arm/memcpy.S
-	# ${libc}/machine/arm/strlen-stub.c
-	# ${libc}/machine/arm/strlen.S
+	${libc}/machine/arm/setjmp.S 
+    ${libc}/machine/arm/strcmp.S 
+    ${libc}/machine/arm/strcpy.c
+	${libc}/machine/arm/aeabi_memcpy.c 
+    ${libc}/machine/arm/aeabi_memcpy-armv7a.S
+	${libc}/machine/arm/aeabi_memmove.c 
+    ${libc}/machine/arm/aeabi_memmove-soft.S
+	${libc}/machine/arm/aeabi_memset.c 
+    ${libc}/machine/arm/aeabi_memset-soft.S 
+    ${libc}/machine/arm/aeabi_memclr.c
+	${libc}/machine/arm/memchr-stub.c
+	${libc}/machine/arm/memchr.S
+	${libc}/machine/arm/memcpy-stub.c
+	${libc}/machine/arm/memcpy.S
+	${libc}/machine/arm/strlen-stub.c
+	${libc}/machine/arm/strlen.S
 )
 
 ########### misc

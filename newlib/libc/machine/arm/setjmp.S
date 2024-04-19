@@ -2,7 +2,7 @@
 
    Nick Clifton, Cygnus Solutions, 13 June 1997.  */
 
-#include "arm-acle-compat.h"
+#include "../../../../include/arm-acle-compat.h"
 
 /* ANSI concatenation macros.  */
 #define CONCAT(a, b)  CONCAT2(a, b)

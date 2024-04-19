@@ -75,7 +75,7 @@
 
 	.syntax unified
 
-#include "arm-acle-compat.h"
+#include "../../../../include/arm-acle-compat.h"
 #include "arm_asm.h"
 
 @ NOTE: This ifdef MUST match the one in memchr-stub.c

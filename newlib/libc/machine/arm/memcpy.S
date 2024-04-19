@@ -29,7 +29,7 @@
 /* The structure of the following #if #else #endif conditional chain
    must match the chain in memcpy-stub.c.  */
 
-#include "arm-acle-compat.h"
+#include "../../../../include/arm-acle-compat.h"
 
 #if defined (__OPTIMIZE_SIZE__) || defined (PREFER_SIZE_OVER_SPEED)
   /* Defined in memcpy-stub.c.  */
