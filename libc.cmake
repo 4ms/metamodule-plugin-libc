@@ -164,11 +164,40 @@ set(LIBC_MISC_SOURCES
 )
 
 ########### posix
-########### reent
-########### search
-########### signal
-########### stdio
+#Skip
 
+########### reent
+# filesystem (openr, closer,...), system call (signalr), and reent helper (getreent, impure, ...) sources commented out
+set(LIBC_REENT_SOURCES
+	# ${libc}/reent/closer.c
+	# ${libc}/reent/reent.c
+	# ${libc}/reent/impure.c
+	# ${libc}/reent/fcntlr.c
+	# ${libc}/reent/fstatr.c
+	# ${libc}/reent/getreent.c
+	${libc}/reent/gettimeofdayr.c
+	# ${libc}/reent/isattyr.c
+	# ${libc}/reent/linkr.c
+	# ${libc}/reent/lseekr.c
+	# ${libc}/reent/mkdirr.c
+	# ${libc}/reent/openr.c
+	# ${libc}/reent/readr.c
+	# ${libc}/reent/renamer.c
+	# ${libc}/reent/signalr.c
+	# ${libc}/reent/sbrkr.c
+	# ${libc}/reent/statr.c
+	# ${libc}/reent/timesr.c
+	# ${libc}/reent/unlinkr.c
+	# ${libc}/reent/writer.c
+)
+
+########### search
+#Skip
+
+########### signal
+#Skip
+
+########### stdio
 set(LIBC_STDIO_SOURCES
 	${libc}/stdio/fiprintf.c
 	${libc}/stdio/fiscanf.c
@@ -661,6 +690,7 @@ target_sources(metamodule-plugin-libc PRIVATE
     ${LIBC_LOCALE_SOURCES}
     ${LIBC_MACHINE_ARM_SOURCES}
     ${LIBC_MISC_SOURCES}
+	${LIBC_REENT_SOURCES}
 	${LIBC_STRING_SOURCES}
 	${LIBC_STDIO_SOURCES}
 	${LIBC_STDLIB_SOURCES}
