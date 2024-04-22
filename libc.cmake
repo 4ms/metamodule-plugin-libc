@@ -175,7 +175,7 @@ set(LIBC_REENT_SOURCES
 	# ${libc}/reent/fcntlr.c
 	# ${libc}/reent/fstatr.c
 	# ${libc}/reent/getreent.c
-	${libc}/reent/gettimeofdayr.c
+	# ${libc}/reent/gettimeofdayr.c
 	# ${libc}/reent/isattyr.c
 	# ${libc}/reent/linkr.c
 	# ${libc}/reent/lseekr.c
@@ -717,5 +717,7 @@ target_compile_options(metamodule-plugin-libc PRIVATE
 )
 
 target_compile_definitions(metamodule-plugin-libc PRIVATE
+    REENTRANT_SYSCALLS_PROVIDED
+    MISSING_SYSCALL_NAMES
     MALLOC_PROVIDED
 )
