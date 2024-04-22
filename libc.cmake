@@ -717,7 +717,5 @@ target_compile_options(metamodule-plugin-libc PRIVATE
 )
 
 target_compile_definitions(metamodule-plugin-libc PRIVATE
-    REENTRANT_SYSCALLS_PROVIDED
-    MISSING_SYSCALL_NAMES
     MALLOC_PROVIDED
 )
