@@ -89,9 +89,9 @@ set(LIBSTDCPP_C20_SOURCES
 )
 
 set(LIBSTDCPP_FILESYSTEM_SOURCES
-	# ${libstdcpp}/filesystem/dir.cc
-	# ${libstdcpp}/filesystem/ops.cc
-	# ${libstdcpp}/filesystem/path.cc
+	${libstdcpp}/filesystem/dir.cc
+	${libstdcpp}/filesystem/ops.cc
+	${libstdcpp}/filesystem/path.cc
 )
 
 set(LIBSTDCPP_SHARED_SOURCES
@@ -106,12 +106,15 @@ target_compile_options(libstdcpp11 PRIVATE -std=c++11)
 
 
 target_sources(metamodule-plugin-libc PRIVATE
-    # ${LIBSTDCPP_C98_SOURCES}
-    # ${LIBSTDCPP_C11_SOURCES}
     ${LIBSTDCPP_C17_SOURCES}
     # ${LIBSTDCPP_C20_SOURCES}
     # ${LIBSTDCPP_FILESYSTEM_SOURCES}
     ${LIBSTDCPP_SHARED_SOURCES}
+)
+set_source_files_properties(
+    ${libstdcpp}/c++98/strstream.cc 
+    ${libstdcpp}/c++98/bitmap_allocator.cc 
+    PROPERTIES COMPILE_OPTIONS "-Wno-deprecated"
 )
 
 target_link_libraries(metamodule-plugin-libc PUBLIC libstdcpp98 libstdcpp11)

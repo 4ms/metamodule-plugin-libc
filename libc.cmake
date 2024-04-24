@@ -715,7 +715,11 @@ target_compile_options(metamodule-plugin-libc PRIVATE
 	"$<$<COMPILE_LANGUAGE:C>:-Wno-discarded-qualifiers>"
     -I${CMAKE_CURRENT_LIST_DIR}/include
 )
+set_source_files_properties(
+    ${libc}/machine/arm/aeabi_memcpy.c PROPERTIES COMPILE_OPTIONS "-Wno-builtin-declaration-mismatch"
+)
 
 target_compile_definitions(metamodule-plugin-libc PRIVATE
     MALLOC_PROVIDED
 )
+
