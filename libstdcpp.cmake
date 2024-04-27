@@ -104,11 +104,16 @@ target_compile_options(libstdcpp98 PRIVATE -std=c++11)
 add_library(libstdcpp11 OBJECT ${LIBSTDCPP_C11_SOURCES})
 target_compile_options(libstdcpp11 PRIVATE -std=c++11)
 
+# Export include dirs so we can override system headers we want 
+# to disable (like iostreams)
+target_include_directories(metamodule-plugin-libc PUBLIC
+	${CMAKE_CURRENT_LIST_DIR}/include
+)
 
 target_sources(metamodule-plugin-libc PRIVATE
     ${LIBSTDCPP_C17_SOURCES}
-    # ${LIBSTDCPP_C20_SOURCES}
-    # ${LIBSTDCPP_FILESYSTEM_SOURCES}
+	# ${LIBSTDCPP_C20_SOURCES} # sstream not used in MetaModule
+	# ${LIBSTDCPP_FILESYSTEM_SOURCES} # filesystem not used in MetaModule
     ${LIBSTDCPP_SHARED_SOURCES}
 )
 set_source_files_properties(
@@ -116,5 +121,6 @@ set_source_files_properties(
     ${libstdcpp}/c++98/bitmap_allocator.cc 
     PROPERTIES COMPILE_OPTIONS "-Wno-deprecated"
 )
+
 
 target_link_libraries(metamodule-plugin-libc PUBLIC libstdcpp98 libstdcpp11)
