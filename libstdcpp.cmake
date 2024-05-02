@@ -1,6 +1,14 @@
 set(libstdcpp ${CMAKE_CURRENT_LIST_DIR}/libstdc++-v3/src)
 set(libstdcpproot ${CMAKE_CURRENT_LIST_DIR}/libstdc++-v3)
 
+set(common_opts 
+    -fbuiltin 
+    -fno-math-errno 
+    -fvisibility=hidden
+    # -fimplicit-templates
+    # -no-incstd
+)
+
 #TODO: split this up into files for each c++ version:
 
 ##
@@ -17,17 +25,24 @@ set(libstdcpproot ${CMAKE_CURRENT_LIST_DIR}/libstdc++-v3)
 # )
 
 set(LIBSTDCPP_C98_HOST_SOURCES
+    # Using these does not compile because things like __POSITIVE_SIGN are not defined anywhere:
 	# ${libstdcpp}/../config/locale/gnu/codecvt_members.cc
 	# ${libstdcpp}/../config/locale/gnu/collate_members.cc
 	# ${libstdcpp}/../config/locale/gnu/messages_members.cc
-	${libstdcpp}/../config/locale/gnu/monetary_members.cc
+	# ${libstdcpp}/../config/locale/gnu/monetary_members.cc
 	# ${libstdcpp}/../config/locale/gnu/numeric_members.cc
 	# ${libstdcpp}/../config/locale/gnu/time_members.cc
+	${libstdcpp}/../config/locale/generic/codecvt_members.cc
+	${libstdcpp}/../config/locale/generic/collate_members.cc
+	${libstdcpp}/../config/locale/generic/messages_members.cc
+	${libstdcpp}/../config/locale/generic/monetary_members.cc
+	${libstdcpp}/../config/locale/generic/numeric_members.cc
+	${libstdcpp}/../config/locale/generic/time_members.cc
 )
 
 set(LIBSTDCPP_C98_HOST_SOURCES_EXTRA
-	${libstdcpp}/../config/locale/generic/c_locale.cc
-	# ${libstdcpp}/../config/locale/gnu/c_locale.cc
+	# ${libstdcpp}/../config/locale/generic/c_locale.cc
+	${libstdcpp}/../config/locale/gnu/c_locale.cc
 	${libstdcpp}/../config/io/basic_file_stdio.cc
 	#inst_sources:
 	${libstdcpp}/c++98/allocator-inst.cc
@@ -60,9 +75,9 @@ set(LIBSTDCPP_C98_SOURCES
 	${libstdcpp}/c++98/list_associated.cc
 	${libstdcpp}/c++98/list_associated-2.cc
 	${libstdcpp}/c++98/locale.cc
-	# ${libstdcpp}/c++98/locale_init.cc #moved to c++11 (see TODO in c++98/Makefile.in)
+	${libstdcpp}/c++98/locale_init.cc
 	${libstdcpp}/c++98/locale_facets.cc
-	# ${libstdcpp}/c++98/localename.cc #moved to c++11 (see TODO in c++98/Makefile.in)
+	${libstdcpp}/c++98/localename.cc
 	${libstdcpp}/c++98/math_stubs_float.cc
 	${libstdcpp}/c++98/math_stubs_long_double.cc
 	${libstdcpp}/c++98/stdexcept.cc
@@ -73,23 +88,30 @@ set(LIBSTDCPP_C98_SOURCES
 	${libstdcpp}/c++98/streambuf.cc
 	${libstdcpp}/c++98/valarray.cc
 
+	${libstdcpp}/c++98/compatibility.cc
+
 	${LIBSTDCPP_C98_CXX11_ABI_SOURCES}
 	${LIBSTDCPP_C98_HOST_SOURCES}
 	${LIBSTDCPP_C98_HOST_SOURCES_EXTRA}
 )
 
-add_library(libstdcpp98 OBJECT ${LIBSTDCPP_C98_SOURCES})
+add_library(libstdcpp98 STATIC ${LIBSTDCPP_C98_SOURCES})
 
 target_include_directories(libstdcpp98 PRIVATE 
 	${libstdcpproot}/config/locale/gnu
+	# ${libstdcpproot}/include/c
+	# ${libstdcpproot}/include/c_global
+	# ${libstdcpproot}/include/c_std
+	# ${libstdcpproot}/include/c_compatibility
 	${CMAKE_CURRENT_LIST_DIR}/include
 )
 target_compile_options(libstdcpp98 PRIVATE -std=gnu++98)
+target_compile_options(libstdcpp98 PRIVATE ${common_opts})
 
 set_source_files_properties(
     ${libstdcpp}/c++98/locale_init.cc 
     ${libstdcpp}/c++98/localename.cc 
-    PROPERTIES COMPILE_OPTIONS "-fchar8_t"
+    PROPERTIES COMPILE_OPTIONS "-fchar8_t;-std=gnu++11"
 )
 
 set_source_files_properties(
@@ -150,8 +172,8 @@ set(LIBSTDCPP_C11_EXTRA_STRING_INST_SOURCES
 )
 
 set(LIBSTDCPP_C11_SOURCES
-	${libstdcpp}/c++98/locale_init.cc 
-	${libstdcpp}/c++98/localename.cc
+	# ${libstdcpp}/c++98/locale_init.cc 
+	# ${libstdcpp}/c++98/localename.cc
 
 	${libstdcpp}/c++11/chrono.cc
 	${libstdcpp}/c++11/codecvt.cc
@@ -186,7 +208,7 @@ set(LIBSTDCPP_C11_SOURCES
 	${libstdcpp}/c++11/ios-inst.cc
 	${libstdcpp}/c++11/iostream-inst.cc
 	${libstdcpp}/c++11/istream-inst.cc
-	${libstdcpp}/c++11/locale-inst.cc
+	# ${libstdcpp}/c++11/locale-inst.cc
 	${libstdcpp}/c++11/ostream-inst.cc
 	${libstdcpp}/c++11/sstream-inst.cc
 	${libstdcpp}/c++11/streambuf-inst.cc
@@ -197,14 +219,19 @@ set(LIBSTDCPP_C11_SOURCES
 	${libstdcpp}/c++11/wstring-io-inst.cc
 )
 
-add_library(libstdcpp11 OBJECT ${LIBSTDCPP_C11_SOURCES})
+add_library(libstdcpp11 STATIC ${LIBSTDCPP_C11_SOURCES})
 
 target_include_directories(libstdcpp11 PRIVATE 
 	${libstdcpproot}/config/locale/gnu
 	${CMAKE_CURRENT_LIST_DIR}/include
+	# ${libstdcpproot}/include/c
+	# ${libstdcpproot}/include/c_global
+	# ${libstdcpproot}/include/c_std
+	# ${libstdcpproot}/include/c_compatibility
 )
 
 target_compile_options(libstdcpp11 PRIVATE -std=gnu++11)
+target_compile_options(libstdcpp11 PRIVATE ${common_opts})
 
 set_source_files_properties(
 	${libstdcpp}/c++11/hashtable_c++0x.cc
@@ -241,12 +268,20 @@ set(LIBSTDCPP_C17_SOURCES
 	# ${libstdcpp}/c++17/cow-fs_path.cc
 )
 
-add_library(libstdcpp17 OBJECT ${LIBSTDCPP_C17_SOURCES})
+add_library(libstdcpp17 STATIC ${LIBSTDCPP_C17_SOURCES})
 
 target_compile_options(libstdcpp17 PRIVATE 
 	-std=gnu++17 
 	# -nostdinc++ 
 	-fimplicit-templates
+)
+target_compile_options(libstdcpp17 PRIVATE ${common_opts})
+
+target_include_directories(libstdcpp17 PRIVATE
+	# ${libstdcpproot}/include/c
+	# ${libstdcpproot}/include/c_global
+	# ${libstdcpproot}/include/c_std
+	# ${libstdcpproot}/include/c_compatibility
 )
 
 #
@@ -268,12 +303,20 @@ set(LIBSTDCPP_SHARED_SOURCES
 )
 
 
-add_library(libstdcpp20 OBJECT 
+add_library(libstdcpp20 STATIC 
 	${LIBSTDCPP_C20_SOURCES}
 	# ${LIBSTDCPP_FILESYSTEM_SOURCES} # filesystem not used in MetaModule
 )
 
+target_include_directories(libstdcpp20 PRIVATE
+	# ${libstdcpproot}/include/c_global
+	# ${libstdcpproot}/include/c_std
+	# ${libstdcpproot}/include/c
+	# ${libstdcpproot}/include/c_compatibility
+)
+
 target_compile_options(libstdcpp20 PRIVATE -std=gnu++20)
+target_compile_options(libstdcpp20 PRIVATE ${common_opts})
 
 #
 #
@@ -283,12 +326,12 @@ target_sources(metamodule-plugin-libc PRIVATE
     ${LIBSTDCPP_SHARED_SOURCES}
 )
 
-target_link_libraries(metamodule-plugin-libc PUBLIC 
-	libstdcpp98 
-	libstdcpp11 
-	libstdcpp17 
-	libstdcpp20
-)
+# target_link_libraries(metamodule-plugin-libc PUBLIC 
+# 	libstdcpp20
+# 	libstdcpp17 
+# 	libstdcpp11 
+# 	libstdcpp98 
+# )
 
 # Export include dirs so we can override system headers we want 
 # to disable (like iostreams)
@@ -297,7 +340,7 @@ target_include_directories(metamodule-plugin-libc PUBLIC
 )
 
 target_compile_definitions(metamodule-plugin-libc PRIVATE 
-	__HAVE_LOCALE_INFO__
-	__HAVE_LOCALE_INFO_EXTENDED__
+	# __HAVE_LOCALE_INFO__
+	# __HAVE_LOCALE_INFO_EXTENDED__
 )
 
