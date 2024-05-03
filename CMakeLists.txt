@@ -10,8 +10,8 @@ else()
     include(libc.cmake)
 endif()
 
-include(libsupcpp.cmake)
-include(libstdcpp.cmake)
+# include(libsupcpp.cmake)
+# include(libstdcpp.cmake)
 
 
 target_compile_options(metamodule-plugin-libc PRIVATE
