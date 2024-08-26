@@ -2,16 +2,17 @@ add_library(metamodule-plugin-libc STATIC)
 add_library(metamodule::plugin-libc ALIAS metamodule-plugin-libc)
 
 if (METAMODULE_PLUGIN_STATIC_LIBC)
+    message("Using static standard libraries")
     target_sources(metamodule-plugin-libc PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/dso_handle.c
     )
 else()
     include(libm.cmake)
     include(libc.cmake)
+    include(libsupcpp.cmake)
+    include(libstdcpp.cmake)
 endif()
 
-include(libsupcpp.cmake)
-include(libstdcpp.cmake)
 
 
 target_compile_options(metamodule-plugin-libc PRIVATE
