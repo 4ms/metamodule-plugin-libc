@@ -635,7 +635,8 @@ set(LIBC_STRING_SOURCES
 # if(!${ELIX_LEVEL_1} AND !${ELIX_LEVEL_2} AND !${ELIX_LEVEL_3})
 set(LIBC_STRING_SOURCES
     ${LIBC_STRING_SOURCES}
-    ${libc}/string/gnu_basename.c
+    # ${libc}/string/gnu_basename.c
+    ${libc}/unix/basename.c
     ${libc}/string/memmem.c
     ${libc}/string/memrchr.c
     ${libc}/string/rawmemchr.c
